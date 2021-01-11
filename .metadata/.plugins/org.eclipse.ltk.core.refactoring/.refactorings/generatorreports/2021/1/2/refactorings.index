@@ -1,0 +1,18 @@
+1610356429062	Rename compilation unit 'BalanceOperationImpl.java'
+1610356490587	Rename type 'BalanceOperation'
+1610356747914	Rename compilation unit 'genertoremailImpl.java'
+1610356781444	Rename type 'genertoremail'
+1610356982899	Rename compilation unit 'InfoTransfert.java'
+1610357022509	Encapsulate field 'Name'
+1610357043247	Encapsulate field 'Surname'
+1610357050077	Encapsulate field 'age'
+1610357059214	Encapsulate field 'email'
+1610357145271	Rename package 'com.nkompchristian.rest'
+1610357214287	Rename package 'com.nkompchristian.rest.test'
+1610360039684	Delete element
+1610360211166	Delete element
+1610361702141	Rename type 'generatoremail'
+1610361725473	Rename type 'generatoremailImpl'
+1610361773909	Rename type 'generatorEmail'
+1610361795683	Rename type 'generatorEmailImpl'
+1610362382075	Rename type 'InfoPerson'

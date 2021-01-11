@@ -1,0 +1,12 @@
+package com.nkompchristian.rest.model;
+
+import java.net.URISyntaxException;
+
+import org.springframework.http.ResponseEntity;
+
+public interface genertoremail {
+	  public ResponseEntity<Object> sendEmail(String email) throws URISyntaxException;
+	 
+}
+
+

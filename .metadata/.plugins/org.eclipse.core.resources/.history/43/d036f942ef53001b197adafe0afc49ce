@@ -1,0 +1,47 @@
+/**
+ * 
+ */
+package com.generatorreportemail.rest.model;
+
+/**
+ * @author TI-LT1055
+ *
+ */
+public class InfoPerson {
+
+	private String Name;
+	private String Surname;
+	private int age;
+	private String email;
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return Name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		Name = name;
+	}
+	public String getSurname() {
+		return Surname;
+	}
+	public void setSurname(String surname) {
+		Surname = surname;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+}

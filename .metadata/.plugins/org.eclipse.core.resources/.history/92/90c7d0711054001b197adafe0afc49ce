@@ -1,0 +1,60 @@
+package com.generatorreportemail.rest.model;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+
+@Service
+public class GeneratorEmailImpl implements GeneratorEmail {
+	
+	@Autowired
+	private  JavaMailSender javaMailSender;
+	
+	public GeneratorEmailImpl() {
+		// TODO Auto-generated constructor stub
+	}
+		
+
+	@Override
+	public void sendEmail(String name, String surname) throws URISyntaxException {
+		
+		SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(""+name+""+surname+"@gmail.com");
+        msg.setSubject("Test Invio Mail");
+        msg.setText("Ciao come stai, la mia mail spring ti è arrivata correttamente?");
+        
+        javaMailSender.send(msg);
+		
+        return;
+	}
+	
+	
+	public void sendEmailWithAttachment(String name, String surname) throws MessagingException, IOException {
+
+        MimeMessage msg = javaMailSender.createMimeMessage();
+
+        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+        
+        helper.setTo(""+name+""+surname+"@gmail.com");
+
+        helper.setSubject("Testing from Spring Boot");
+
+       
+
+        helper.setText("<h1>Check attachment for image!</h1>", true);
+
+        helper.addAttachment("my_photo.png", new ClassPathResource("android.png"));
+
+        javaMailSender.send(msg);
+
+    }
+
+}
+ 

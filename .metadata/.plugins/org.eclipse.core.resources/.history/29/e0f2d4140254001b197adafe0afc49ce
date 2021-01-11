@@ -1,0 +1,33 @@
+package com.generatorreportemail.test;
+import java.net.URISyntaxException;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.generatorreportemail.rest.model.GeneratorEmail;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+public class SpringBootDemoApplicationTests 
+{   
+    
+   @Autowired
+    private GeneratorEmail generatorEmail;
+	
+    @Test
+    public void testSendEmail() throws URISyntaxException 
+    {
+    		String name ="Santa";
+    		String Surname ="Barbara";
+    		
+    		generatorEmail.sendEmail(name, Surname);
+    		
+       
+    }
+
+    
+}

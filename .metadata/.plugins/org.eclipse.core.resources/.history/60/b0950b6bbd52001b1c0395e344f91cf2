@@ -1,0 +1,13 @@
+package com.nkompchristian.rest.model;
+
+import java.net.URISyntaxException;
+
+import org.springframework.http.ResponseEntity;
+
+public interface BalanceOperation {
+	  public ResponseEntity<Object> balanceRead(int accountId) throws URISyntaxException;
+	  public void transfert() throws URISyntaxException;
+	  public void transactionRead() throws URISyntaxException;
+}
+
+

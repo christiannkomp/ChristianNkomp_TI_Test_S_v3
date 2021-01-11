@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.generatorreportemail.rest.model;
+
+/**
+ * @author TI-LT1055
+ *
+ */
+public interface generatoremail {
+
+}

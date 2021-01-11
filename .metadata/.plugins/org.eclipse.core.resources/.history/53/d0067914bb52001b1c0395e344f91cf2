@@ -1,0 +1,56 @@
+package com.nkompchristian.rest.model;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class BalanceOperationImpl implements BalanceOperation {
+
+	public static final String BASE_URL = "https://sandbox.platfr.io/api/gbs/banking/v4.0/accounts";
+	public BalanceOperationImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	    
+	private static HttpEntity<Object> getHttpEntityObject(Object object){
+		 HttpHeaders headers = new HttpHeaders();
+	     headers.set("Auth-Schema", "S2S");
+	     headers.set("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
+	     HttpEntity<Object> requestEntity = new HttpEntity<>(object, headers);
+	
+	     return requestEntity;
+	 }
+	
+	@Override
+	public ResponseEntity<Object> balanceRead(int accountId) throws URISyntaxException {
+		
+		RestTemplate restTemplate = new RestTemplate();
+	        
+        URI uri = new URI(BASE_URL + "/"+ accountId);
+              
+        HttpEntity<Object> requestEntity = getHttpEntityObject(null);
+        
+        ResponseEntity<Object> result = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Object.class);//mi ritorna un oggetto
+        
+        return result;
+	}
+
+	@Override
+	public void transfert() throws URISyntaxException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void transactionRead() throws URISyntaxException {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,12 @@
+package com.generatorreportemail.rest.model;
+
+import java.net.URISyntaxException;
+
+import org.springframework.http.ResponseEntity;
+
+public interface generatoremail {
+	  public ResponseEntity<Object> sendEmail(String email) throws URISyntaxException;
+	 
+}
+
+

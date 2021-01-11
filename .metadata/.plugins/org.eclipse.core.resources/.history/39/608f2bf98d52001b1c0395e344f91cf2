@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package com.nkompchristian.rest.model;
+
+/**
+ * @author TI-LT1055
+ *
+ */
+public class InfoTransfert {
+
+	/**
+	 * 
+	 */
+	public InfoTransfert() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.nkompchristian.rest.model;
+
+public class BalanceOperationImpl {
+
+	public BalanceOperationImpl() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

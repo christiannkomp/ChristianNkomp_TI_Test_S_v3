@@ -1,0 +1,26 @@
+package com.nkompchristian.rest.model;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Service;
+
+@Service
+public class genertoremailImpl implements genertoremail {
+
+	public static final String BASE_URL = "https://sandbox.platfr.io/api/gbs/banking/v4.0/accounts";
+	public genertoremailImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	//Header della richiesta Http con i suoi parametri   
+	public static HttpEntity<Object> getHttpEntityObject(Object object){
+		 HttpHeaders headers = new HttpHeaders();
+	     headers.set("Auth-Schema", "S2S");
+	     headers.set("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
+	     HttpEntity<Object> requestEntity = new HttpEntity<>(object, headers);
+	
+	     return requestEntity;
+	 }
+	
+
+}

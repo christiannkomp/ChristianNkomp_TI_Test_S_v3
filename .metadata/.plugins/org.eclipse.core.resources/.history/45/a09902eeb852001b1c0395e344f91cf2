@@ -1,0 +1,5 @@
+package com.nkompchristian.rest.model;
+
+public interface BalanceRead {
+
+}

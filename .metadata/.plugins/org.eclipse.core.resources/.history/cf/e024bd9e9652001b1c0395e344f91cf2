@@ -1,0 +1,99 @@
+package com.nkompchristian.rest.test;
+
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+
+import com.nkompchristian.rest.model.InfoTransfert;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+public class SpringBootDemoApplicationTests 
+{   
+    public static final String BASE_URL = "https://sandbox.platfr.io/api/gbs/banking/v4.0/accounts";
+    
+    private static HttpEntity<Object> getHttpEntityObject(Object object){
+    	 HttpHeaders headers = new HttpHeaders();
+         headers.set("Auth-Schema", "S2S");
+         headers.set("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
+         HttpEntity<Object> requestEntity = new HttpEntity<>(object, headers);
+
+         return requestEntity;
+    }
+    
+    
+    //Lettura saldo
+    @Test
+    public void testBalanceRead() throws URISyntaxException 
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        
+        URI uri = new URI(BASE_URL + "/14537780");
+              
+        HttpEntity<Object> requestEntity = getHttpEntityObject(null);
+        
+        ResponseEntity<Object> result = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Object.class);//mi ritorna un oggetto
+        
+        
+        System.out.println("Result ="+ result);
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+    
+    //Bonifico
+    @Test
+    public void sendTransfert() throws URISyntaxException 
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        
+        URI uri = new URI(BASE_URL + "/14537780/payments/money-transfers"); 
+        
+        InfoTransfert infotransfert = new InfoTransfert();
+        infotransfert.setAmount("10000");
+        infotransfert.setCurrency("EUR");
+        infotransfert.setDescription("Questo è il tuo bonifico");
+        infotransfert.setExecutionDate("09/01/2021");
+        infotransfert.setReceiverName("Santa Barbara");
+        
+        HttpEntity<Object> requestEntity = getHttpEntityObject(infotransfert);
+        
+        try 
+        {
+            restTemplate.postForEntity(uri, requestEntity, String.class);
+        }
+        catch(HttpClientErrorException ex) 
+        {
+            Assert.assertEquals(400, ex.getRawStatusCode());
+            System.out.print(ex.getResponseBodyAsString());
+            Assert.assertEquals(true, ex.getResponseBodyAsString().contains("REQ010"));
+        }
+    }
+    
+    //Lettura transazioni
+    @Test
+    public void transactionRead() throws URISyntaxException 
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        
+        URI uri = new URI(BASE_URL + "/?accountId=14537780&fromAccountingDate=2019-01-01&toAccountingDate=2019-12-01");
+              
+        HttpEntity<Object> requestEntity = getHttpEntityObject(null);
+        
+        ResponseEntity<Object> result = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Object.class);//mi ritorna un oggetto
+        
+        
+        System.out.println("Result ="+ result);
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+}

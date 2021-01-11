@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package com.generatorreportemail.rest.model;
+
+import java.net.URISyntaxException;
+
+/**
+ * @author TI-LT1055
+ *
+ */
+public interface generatorEmail {
+	 public void sendEmail() throws URISyntaxException;
+}

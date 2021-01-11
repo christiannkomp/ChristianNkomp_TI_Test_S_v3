@@ -1,0 +1,97 @@
+package com.nkompchristian.rest.test;
+
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+
+import com.nkompchristian.rest.model.InfoTransfert;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+public class SpringBootDemoApplicationTests 
+{   
+    public static final String BASE_URL = "https://sandbox.platfr.io/api/gbs/banking/v4.0/accounts";
+    
+    //Lettura saldo
+    @Test
+    public void testBalanceRead() throws URISyntaxException 
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        
+        URI uri = new URI(BASE_URL + "/14537780");
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Auth-Schema", "S2S");
+        headers.set("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
+        HttpEntity<Object> requestEntity = new HttpEntity<>(null, headers);
+        
+        ResponseEntity<Object> result = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Object.class);//mi ritorna un oggetto
+        
+        
+        System.out.println("Result ="+ result);
+        //Verify request succeed
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testAddEmployeeMissingHeader() throws URISyntaxException 
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        
+        URI uri = new URI(BASE_URL + "/14537780/payments/money-transfers");
+        InfoTransfert infotransfert = new InfoTransfert();
+        infotransfert.setAmount("10000");
+        infotransfert.setCurrency("EUR");
+        infotransfert.setDescription("Questo è il tuo bonifico");
+        infotransfert.setExecutionDate("09/01/2021");
+        infotransfert.setReceiverName("Santa Barbara");
+        
+        HttpHeaders headers = new HttpHeaders();
+
+        HttpEntity<InfoTransfert> request = new HttpEntity<>(infotransfert, headers);
+        
+        try 
+        {
+            restTemplate.postForEntity(uri, request, String.class);
+        }
+        catch(HttpClientErrorException ex) 
+        {
+            //Verify bad request and missing header
+            Assert.assertEquals(400, ex.getRawStatusCode());
+            Assert.assertEquals(true, ex.getResponseBodyAsString().contains("REQ010"));
+        }
+    }
+    
+   /* @Test
+    public void testAddEmployeeSuccess() throws URISyntaxException 
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        final String baseUrl = "http://localhost:"+randomServerPort+"/employees/";
+        URI uri = new URI(baseUrl);
+        Employee employee = new Employee(null, "Adam", "Gilly", "test@email.com");
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-COM-PERSIST", "true");      
+
+        HttpEntity<Employee> request = new HttpEntity<>(employee, headers);
+        
+        ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
+        
+        //Verify request succeed
+        Assert.assertEquals(201, result.getStatusCodeValue());
+    }
+    
+*/
+}

@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package com.nkompchristian.rest.model;
+
+/**
+ * @author TI-LT1055
+ *
+ */
+public class InfoPerson {
+
+	private String Name;
+	private String Surname;
+	private int age;
+	private String email;
+
+	
+
+}

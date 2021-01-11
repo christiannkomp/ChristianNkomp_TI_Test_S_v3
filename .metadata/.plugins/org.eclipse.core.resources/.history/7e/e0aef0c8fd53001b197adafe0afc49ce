@@ -1,0 +1,40 @@
+package com.generatorreportemail.test;
+import java.net.URISyntaxException;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.generatorreportemail.rest.model.GeneratorEmail;
+import com.nkompchristian.rest.model.BalanceOperation;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+public class SpringBootDemoApplicationTests 
+{   
+    
+   @Autowired
+    private GeneratorEmail generatorEmail;
+	
+    @Test
+    public void testSendEmail() throws URISyntaxException 
+    {
+    		String name ="Santa";
+    		String Surname ="Barbara";
+        
+        	ResponseEntity<String> requestEntity = generatorEmail.sendEmail(name,Surname);
+            
+            Assert.assertEquals(400, requestEntity.getStatusCodeValue());//Risultato ritorna un request Entity, recupero lo statut della richiesta deve essere uguale a 400
+            System.out.print(requestEntity.getBody());
+            Assert.assertEquals(true, requestEntity.getBody().contains("REQ010"));
+      
+       
+    }
+
+    
+}

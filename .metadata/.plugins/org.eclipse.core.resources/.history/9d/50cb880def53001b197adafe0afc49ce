@@ -1,0 +1,34 @@
+package com.generatorreportemail.rest.model;
+
+import java.net.URISyntaxException;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+@Service
+public class generatoremailImpl implements generatoremail {
+
+	public static final String BASE_URL = "";
+	public void generatoremailImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	 
+	public static HttpEntity<Object> getHttpEntityObject(Object object){
+		 HttpHeaders headers = new HttpHeaders();
+	     headers.set("", "");
+	     headers.set("", "");
+	     HttpEntity<Object> requestEntity = new HttpEntity<>(object, headers);
+	
+	     return requestEntity;
+	 }
+
+	@Override
+	public ResponseEntity<Object> sendEmail(String email) throws URISyntaxException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}
